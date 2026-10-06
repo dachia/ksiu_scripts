@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+
+# Attendee data (names, companies) and QR codes
+*.xlsx
+badges.csv
+badges*.csv
+badges1/
+badges_Fusion_Georgia_*/
+
+# Generated badges
+badges_pdf/
+badges_tiff/
+
+# Zip archives (inputs and deliverables)
+*.zip
+
+# Illustrator template (353 MB); keep it outside git
+*.ai
+
+# Derived by make_badge.py on first run
+template_slim.pdf
+blank_qr.png
+*.part
+*.tmp
+
+# Generated agenda PDFs
+agenda/out/
