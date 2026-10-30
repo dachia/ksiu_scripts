@@ -14,6 +14,7 @@ import argparse,os,re,sys,unicodedata,collections,csv,openpyxl
 OUT='badges.csv'
 D='badges_Fusion_Georgia_2026_2026-10-02'
 XLSX='b.xlsx'
+HEADER_ALIASES={'Custom States':'Category'}  # the category column of some exports
 USE_MANUAL=True  # MANUAL is keyed by the first set's row numbers; off for any --set
 HEADER=['№','Name','Company','Country','Category','Source status','Attendance note','QR file','QR path','Match status','QR files found','Review note',
         'Template colour','PDF path','TIFF path','Badge status']
@@ -52,7 +53,7 @@ def build():
     if os.path.exists(OUT): sys.exit(f'{OUT} exists; delete it first if you really want to rebuild it (human edits are lost)')
     files,spell_by_id=scan_qr_folder()
     sheet=list(openpyxl.load_workbook(XLSX).active.iter_rows(values_only=True))
-    col={h:i for i,h in enumerate(sheet[0]) if h}
+    col={HEADER_ALIASES.get(h,h):i for i,h in enumerate(sheet[0]) if h}
     missing=[h for h in ('Name','Company','Country') if h not in col]
     if missing: sys.exit(f'{XLSX}: missing header(s) {missing}; found {list(col)}')
     col.update({h:i for h,i in (('Category',4),('Source status',5),('Attendance note',6)) if h not in col})  # b.xlsx has no headers on E-G
